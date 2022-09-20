@@ -1,4 +1,4 @@
-# test
+# PlayWithFriend
 
 ## Project setup
 ```
