@@ -2,6 +2,8 @@ import { createWebHistory, createRouter } from "vue-router";
 import ChatRoom from "../views/ChatRoom.vue";
 import VideoRoom from "../views/VideoRoom.vue";
 import HomePage from "../views/HomePage.vue";
+import ChatRoomList from "../views/ChatRoomList.vue";
+import ChatRoomDetail from "../views/ChatRoomDetail.vue";
 
 
 const router = createRouter({
@@ -13,7 +15,7 @@ const router = createRouter({
             component : HomePage
         },
         { 
-            path : "/", 
+            path : "/chatRoom_entry", 
             name : "chatRoom", 
             component : ChatRoom
         },
@@ -21,7 +23,17 @@ const router = createRouter({
             path : "/videoRoom_entry", 
             name : "videoRoomEntry", 
             component : VideoRoom
-        }
+        },
+        {
+            path:"/chatRoomList",
+            name: "chatroomlist",
+            component: ChatRoomList
+        },
+        { 
+            path : "/chatRoomDetail", 
+            name : "chatRoomDetail", 
+            component : ChatRoomDetail
+        },
     ]
 });
 
