@@ -1,36 +1,60 @@
 <template>
-    <head>
-    <title>Websocket ChatRoom</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
-  </head>
-  <body>
-    <div class="container" id="app" v-cloak>
-        <div>
-            <h2>{{room.roomName}}</h2>
-        </div>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <label class="input-group-text">내용</label>
+    
+    <v-sheet
+        class="mx-auto"
+        height="600"
+        width="600"
+    >
+    
+        <v-card
+            class="overflow-y-auto mx-auto px-6 py-8"
+            max-width="600"
+            height="600"
+            variant="outlined"
+        >
+            <v-banner
+                class="justify-center text-h5"
+                sticky
+                >
+                <span
+                    class="font-weight-bold"
+                >{{room.roomName}}</span>
+            </v-banner>
+            <div class="container" id="app" v-cloak>
+                <div class="chatList mt-2" v-bind:key="message.idx" v-for="message in messages">
+                    <div class="sender">
+                        {{message.sender}}
+                    </div>
+                    <div class="message">
+                        {{message.message}}
+                    </div>
+                </div>
             </div>
-            <input type="text" class="form-control" v-model="message" v-on:keypress.enter="sendMessage">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" @click="sendMessage">보내기</button>
-                <button class="btn btn-primary" type="button" @click="leaveRoom">나가기</button>
-            </div>
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item" v-bind:key="message.idx" v-for="message in messages">
-               <a> {{message.sender}} - {{message.message}}</a>
-            </li>
-        </ul>
-        <div></div>
-    </div>
-    </body>
+            <v-banner
+                class="text-h5"
+                sticky
+                >
+                <v-row justify="end">
+                    <v-col cols="10">
+                        <v-text-field
+                            v-model="message"
+                            solo
+                            prepend-icon="mdi-chat"
+                            placeholder="메세지를 입력하세요"
+                            v-on:keypress.enter="sendMessage"
+                            class="mb-2"
+                        ></v-text-field>
+                    </v-col>
+                    <v-col cols="2" class="mt-3">
+                        <v-btn class="mr-3" variant="outlined" @click="sendMessage">보내기</v-btn>
+                    </v-col>
+                </v-row>
+            </v-banner>
+        </v-card>
+        <v-row class="mt-4">
+            <v-btn variant="outlined" @click="leaveRoom">나가기</v-btn>
+        </v-row>
+    </v-sheet>
 </template>
 <script>
 import Stomp from 'webstomp-client'
@@ -76,7 +100,7 @@ export default {
             
         },
         recvMessage: function(recv) {
-            this.messages.unshift({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.senderId,"message":recv.content})
+            this.messages.push({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.senderId,"message":recv.content})
         },
         connect: function() {
             // pub/sub event
@@ -101,3 +125,18 @@ export default {
     }
 }
 </script>
+<style scoped>
+div .sender {
+    font-size:15px;
+    width : 50px;
+    height: 30px;
+    background-color: lightblue;
+}
+div .message {
+    font-size: 20px;
+    padding: 10px 10px;
+    background-color: lightgray;
+    width:100%;
+    height:40px;
+}
+</style>
