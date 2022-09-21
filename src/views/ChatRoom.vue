@@ -21,18 +21,16 @@
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button" @click="createRoom">채팅방 개설</button>
             </div>
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" @click="goChatRoomList">채팅방 리스트</button>
+            </div>
         </div>
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-action" v-for="item in chatrooms" v-bind:key="item.chatRoomIdx" v-on:click="enterRoom(item.chatRoomIdx)">
-                {{item.chatRoomIdx}}
-            </li>
-        </ul>
     </div>
     </body>
-    
 </template>
 <script>
-import axios from 'axios' // 통신을 위한 import
+import axios from '../axios.js'
+
 export default {
     data(){
         return {
@@ -46,10 +44,14 @@ export default {
     },
     methods: {
         findAllRoom: function() {
-            axios.get('http://localhost:8080/api/chatRoom/all').then(
+            axios.get('/api/chat/room/all').then(
                 response => { this.chatrooms = response.data.data; console.log(this.chatrooms)}
             );
             console.log(this.chatrooms)
+        },
+        goChatRoomList: function(){
+            location.href="/chatRoomList"
+
         },
         createRoom: function() {
             if("" === this.room_name) {
@@ -57,20 +59,28 @@ export default {
                 return;
             } else {
                 var params = new URLSearchParams();
+                var param = {
+                    roomName: this.room_name,
+                    hostId: 'test',
+                    chatRoomType: 'TEXT',
+                    userList:['test']
+                }
+                console.log("asdf ", params)
                 params.append("name",this.room_name);
-                axios.post('/chat/room', params)
+                axios.post('/api/chat/room', 
+                    param)
                 .then(
                     response => {
-                        alert(response.data.name+"방 개설에 성공하였습니다.")
+                        alert(response.data.data.roomName+"방 개설에 성공하였습니다.")
                         this.room_name = '';
                         this.findAllRoom();
                     }
                 )
-                // .catch( response => { alert("채팅방 개설에 실패하였습니다."); } );
+                .catch( () => { alert("채팅방 개설에 실패하였습니다."); } );
             }
         },
         enterRoom: function(roomId) {
-            var sender = prompt('대화명을 입력해 주세요.');
+            var sender = 'test';
             if(sender != "") {
                 localStorage.setItem('wschat.sender',sender);
                 localStorage.setItem('wschat.roomId',roomId);
