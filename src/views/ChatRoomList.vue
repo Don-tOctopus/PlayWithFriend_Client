@@ -1,11 +1,24 @@
 <template>
     <div>
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-action" v-for="item in chatrooms" v-bind:key="item.chatRoomIdx">
-                {{item.roomName}}
-                <button class="btn btn-primary" type="button" @click="enterRoom(item.chatRoomIdx)">입장</button>
-            </li>
-        </ul>
+        <v-card
+            class="mx-auto px-6 py-8"
+            max-width="344"
+            variant="outlined"
+        >   
+            <v-card-title>채팅방 리스트</v-card-title> 
+            <br/>
+                <v-btn 
+                    class="mb-2" 
+                    flat 
+                    block 
+                    v-for="item in chatrooms" 
+                    v-bind:key="item.chatRoomIdx" 
+                    @click="enterRoom(item.chatRoomIdx)"
+                    color="secondary"
+                >
+                    {{item.roomName}}
+                </v-btn>
+        </v-card>
     </div>
 </template>
 <script>

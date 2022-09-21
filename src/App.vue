@@ -1,4 +1,4 @@
-<template>
+<template>  
   <v-app>
     <v-main>
       <router-view/>
@@ -16,3 +16,7 @@ export default {
   }),
 }
 </script>
+<style scoped>
+
+</style>
+

@@ -1,32 +1,40 @@
 <template>
-    <head>
-        <title>Websocket Chat</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- CSS -->
-    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
-    </head>
-    <body>
-        <div class="container" id="app" v-cloak>
-        <div class="row">
-            <div class="col-md-12">
-                <h3>채팅방 리스트</h3>
-            </div>
-        </div>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <label class="input-group-text">방제목</label>
-            </div>
-            <input type="text" class="form-control" v-model="room_name" v-on:keyup.enter="createRoom">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" @click="createRoom">채팅방 개설</button>
-            </div>
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" @click="goChatRoomList">채팅방 리스트</button>
-            </div>
+    <v-app ref="app">
+        <div class="container" id="app">
+        <div class="d-flex align-center flex-column">
+            
+            <v-card
+                class="mt-15 mx-auto my-auto px-6 py-8"
+                max-width="344"
+                variant="outlined"
+            >
+                <v-card-title >새로운 채팅방 생성</v-card-title>
+                <br>
+                <v-row>
+
+                    <v-text-field
+                        v-model="room_name"
+                        solo
+                        label="방제목"
+                        v-on:keyup.enter="createRoom"
+                        class="mb-2"
+                    ></v-text-field>
+
+                </v-row>
+
+                <v-row>
+                    <v-col d-flex>
+                        <v-btn class="mr-3" variant="outlined" @click="createRoom">채팅방 개설</v-btn>
+                        <v-btn variant="outlined" @click="goChatRoomList">채팅방 리스트</v-btn>
+                    </v-col>
+                </v-row>
+            </v-card>
+
+
+            
         </div>
     </div>
-    </body>
+    </v-app>
 </template>
 <script>
 import axios from '../axios.js'
