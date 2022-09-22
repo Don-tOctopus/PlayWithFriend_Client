@@ -1,7 +1,7 @@
 <template>
     
     <v-sheet
-        class="mx-auto"
+        class=""
         height="600"
         width="600"
     >
@@ -9,7 +9,7 @@
         <v-card
             class="overflow-y-auto px-6 py-8"
             max-width="600"
-            height="600"
+            height="500"
             variant="outlined"
         >
             <v-banner
@@ -30,27 +30,22 @@
                     </div>
                 </div>
             </div>
-            <v-banner
-                class="text-h5"
-                sticky
-                >
-                <v-row justify="end">
-                    <v-col cols="10">
-                        <v-text-field
-                            v-model="message"
-                            solo
-                            prepend-icon="mdi-chat"
-                            placeholder="메세지를 입력하세요"
-                            v-on:keypress.enter="sendMessage"
-                            class="mb-2"
-                        ></v-text-field>
-                    </v-col>
-                    <v-col cols="2" class="mt-3">
-                        <v-btn class="mr-3" variant="outlined" @click="sendMessage">보내기</v-btn>
-                    </v-col>
-                </v-row>
-            </v-banner>
         </v-card>
+        <v-row justify="end">
+            <v-col cols="10">
+                <v-text-field
+                    v-model="message"
+                    solo
+                    prepend-icon="mdi-chat"
+                    placeholder="메세지를 입력하세요"
+                    v-on:keypress.enter="sendMessage"
+                    class="mb-2"
+                ></v-text-field>
+            </v-col>
+            <v-col cols="2" class="mt-3">
+                <v-btn class="mr-3" variant="outlined" @click="sendMessage">보내기</v-btn>
+            </v-col>
+        </v-row>
         <v-row class="mt-4">
             <v-btn variant="outlined" @click="leaveRoom">나가기</v-btn>
         </v-row>

@@ -2,13 +2,13 @@
     <v-card width="300px">
     <v-layout>
       <v-navigation-drawer
-        class="bg-deep-purple"
-        theme="dark"
+        color="#FFEB99"
+        theme="light"
         permanent
       >
         <v-list color="transparent">
-          <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard"></v-list-item>
-          <v-list-item prepend-icon="mdi-account-box" title="Account"></v-list-item>
+          <v-list-item active-color="primary" prepend-icon="mdi-view-dashboard" title="메인" @click="goHomeView"></v-list-item>
+          <v-list-item prepend-icon="mdi-account-box" title="채팅" @click="goChatRoom"></v-list-item>
           <v-list-item prepend-icon="mdi-gavel" title="Admin"></v-list-item>
         </v-list>
 
@@ -30,9 +30,19 @@ export default {
         return {
 
         }
+    },
+    methods:{
+      goHomeView(){
+        location.href="/"
+      },
+      goChatRoom(){
+        location.href="/chatroom_entry"
+      }
     }
 }
 </script>
 <style scoped>
-
+v-navigation-drawer {
+  background-color: #FFEB99;
+}
 </style>
