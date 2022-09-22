@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-card
-            class="mx-auto px-6 py-8"
+            class="px-6 py-8"
             max-width="344"
             variant="outlined"
         >   

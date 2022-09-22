@@ -1,10 +1,10 @@
 <template>
     <v-app ref="app">
         <div class="container" id="app">
-        <div class="d-flex align-center flex-column">
+        <div class="d-flex flex-column">
             
             <v-card
-                class="mt-15 mx-auto my-auto px-6 py-8"
+                class="mt-15 px-6 py-8"
                 max-width="344"
                 variant="outlined"
             >
