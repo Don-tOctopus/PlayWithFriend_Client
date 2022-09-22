@@ -7,7 +7,7 @@
     >
     
         <v-card
-            class="overflow-y-auto mx-auto px-6 py-8"
+            class="overflow-y-auto px-6 py-8"
             max-width="600"
             height="600"
             variant="outlined"
@@ -114,7 +114,6 @@ export default {
             }, function() {
                 if(reconnect++ < 5) {
                     setTimeout(function() {
-                        // console.log("connection reconnect");
                         sock = new SockJS("http://localhost:8080/ws-stomp");
                         ws = Stomp.over(sock);
                         this.connect();

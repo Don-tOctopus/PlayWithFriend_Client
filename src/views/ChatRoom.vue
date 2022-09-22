@@ -11,7 +11,6 @@
                 <v-card-title >새로운 채팅방 생성</v-card-title>
                 <br>
                 <v-row>
-
                     <v-text-field
                         v-model="room_name"
                         solo
@@ -19,7 +18,6 @@
                         v-on:keyup.enter="createRoom"
                         class="mb-2"
                     ></v-text-field>
-
                 </v-row>
 
                 <v-row>
@@ -29,8 +27,6 @@
                     </v-col>
                 </v-row>
             </v-card>
-
-
             
         </div>
     </div>
@@ -73,7 +69,7 @@ export default {
                     chatRoomType: 'TEXT',
                     userList:['test']
                 }
-                console.log("asdf ", params)
+                
                 params.append("name",this.room_name);
                 axios.post('/api/chat/room', 
                     param)
