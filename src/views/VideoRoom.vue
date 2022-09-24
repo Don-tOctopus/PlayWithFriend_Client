@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <!-- 방제 넣기 -->
     <!--    <사용자 임의 추가/>-->
     <v-card class="video-container">
         <video ref="aaa_video" autoplay/>
@@ -52,9 +53,7 @@
                 }).then((stream) => {
 
                     // stream 추출
-                    let videoStream = new MediaStream(stream.getVideoTracks());
-                    console.log("aa", videoStream)
-                    console.log("aa", stream)
+                    let videoStream = new MediaStream(stream.getVideoTracks())
                     this.callerStream = stream;
 
                     // video 태그와 연결
@@ -76,7 +75,6 @@
                     
                     // connectCallback
                     () => {
-console.log("통과00")
 
                         // 누군가 join 했을때 listen, 접속해 있는 전체 세션 리스트를 받는다.
                         stomp.subscribe("/sub/video/joined-room-info", (data) => {
@@ -88,7 +86,7 @@ console.log("통과00")
                             let joinedID = users[topIdx].id;
 
                             // 인원이 한명 이하거나, 자신이 join 일경우는 return
-                            if (topIdx <= 0 || users[topIdx].id === this.myId) return;
+                            if (topIdx <= 0 || users[topIdx].id === this.myId) return
 
                             // 아래 기술
                             // 자신이 접속해 있는 상태에서, 새로운 클라이언트가 접속한 경우,
@@ -100,7 +98,7 @@ console.log("통과00")
                         stomp.send(
                             "/pub/video/joined-room-info",
                             JSON.stringify({from: this.myId})
-                        );
+                        )
                             console.log("this.myId :::", JSON.stringify({from: this.myId}))
 
                         stomp.subscribe("/sub/video/caller-info", (data) => {

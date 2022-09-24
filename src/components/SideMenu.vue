@@ -9,7 +9,7 @@
         <v-list color="transparent">
           <v-list-item active-color="primary" prepend-icon="mdi-view-dashboard" title="메인" @click="goHomeView"></v-list-item>
           <v-list-item prepend-icon="mdi-account-box" title="채팅" @click="goChatRoom"></v-list-item>
-          <v-list-item prepend-icon="mdi-account-box" title="화상채팅" @click="goVideoChatRoom"></v-list-item>
+          <v-list-item prepend-icon="mdi-video-account" title="화상채팅" @click="goVideoChatRoom"></v-list-item>
           <v-list-item prepend-icon="mdi-gavel" title="Admin"></v-list-item>
         </v-list>
 
