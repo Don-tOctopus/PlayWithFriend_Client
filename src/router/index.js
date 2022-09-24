@@ -5,6 +5,8 @@ import VideoRoomCreation from "../views/VideoRoomCreation.vue";
 import HomePage from "../views/HomePage.vue";
 import VideoRoom from "../views/VideoRoom.vue";
 
+import ChatRoomList from "../views/ChatRoomList.vue";
+import ChatRoomDetail from "../views/ChatRoomDetail.vue";
 
 
 const router = createRouter({
@@ -16,7 +18,7 @@ const router = createRouter({
             component : HomePage
         },
         { 
-            path : "/", 
+            path : "/chatRoom_entry", 
             name : "chatRoom", 
             component : ChatRoom
         },
@@ -34,7 +36,17 @@ const router = createRouter({
             path : "/videoRoom", 
             name : "videoRoom", 
             component : VideoRoom
-        }
+        },
+        {
+            path:"/chatRoomList",
+            name: "chatroomlist",
+            component: ChatRoomList
+        },
+        { 
+            path : "/chatRoomDetail", 
+            name : "chatRoomDetail", 
+            component : ChatRoomDetail
+        },
     ]
 });
 

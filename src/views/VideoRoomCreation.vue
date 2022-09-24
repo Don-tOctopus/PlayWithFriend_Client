@@ -34,18 +34,24 @@
             type="password"
           />
         </div>
-        <button
+        <v-btn
           class="creation-room-box__enter-bnt"
-          @click="this.$router.push('/vedioRoom')"
+          @click="this.$router.push('/videoRoom')"
         >
           생 성 하 기
-        </button>
-        <button
+        </v-btn>
+        <v-btn
           class="creation-room-box__cancel-bnt"
           @click="this.$router.push('/')"
         >
           취 소
-        </button>
+        </v-btn>
+        <v-btn
+          class="entry-room-box__cancel-bnt"
+          @click="this.$router.push('videoRoom_entry')"
+        >
+          채팅방 참여
+        </v-btn>
       </div>
     </div>
   </div>

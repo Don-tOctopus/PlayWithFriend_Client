@@ -1,38 +1,40 @@
 <template>
-    <head>
-        <title>Websocket Chat</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- CSS -->
-    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
-    </head>
-    <body>
-        <div class="container" id="app" v-cloak>
-        <div class="row">
-            <div class="col-md-12">
-                <h3>채팅방 리스트</h3>
-            </div>
+    <v-app ref="app">
+        <div class="container" id="app">
+        <div class="d-flex flex-column">
+            
+            <v-card
+                class="mt-15 px-6 py-8"
+                max-width="344"
+                variant="outlined"
+            >
+                <v-card-title >새로운 채팅방 생성</v-card-title>
+                <br>
+                <v-row>
+                    <v-text-field
+                        v-model="room_name"
+                        solo
+                        label="방제목"
+                        v-on:keyup.enter="createRoom"
+                        class="mb-2"
+                    ></v-text-field>
+                </v-row>
+
+                <v-row>
+                    <v-col d-flex>
+                        <v-btn class="mr-3" variant="outlined" @click="createRoom">채팅방 개설</v-btn>
+                        <v-btn variant="outlined" @click="goChatRoomList">채팅방 리스트</v-btn>
+                    </v-col>
+                </v-row>
+            </v-card>
+            
         </div>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <label class="input-group-text">방제목</label>
-            </div>
-            <input type="text" class="form-control" v-model="room_name" v-on:keyup.enter="createRoom">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" @click="createRoom">채팅방 개설</button>
-            </div>
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-action" v-for="item in chatrooms" v-bind:key="item.chatRoomIdx" v-on:click="enterRoom(item.chatRoomIdx)">
-                {{item.chatRoomIdx}}
-            </li>
-        </ul>
     </div>
-    </body>
-    
+    </v-app>
 </template>
 <script>
-import axios from 'axios' // 통신을 위한 import
+import axios from '../axios.js'
+
 export default {
     data(){
         return {
@@ -46,10 +48,14 @@ export default {
     },
     methods: {
         findAllRoom: function() {
-            axios.get('http://localhost:8080/api/chatRoom/all').then(
+            axios.get('/api/chat/room/all').then(
                 response => { this.chatrooms = response.data.data; console.log(this.chatrooms)}
             );
             console.log(this.chatrooms)
+        },
+        goChatRoomList: function(){
+            location.href="/chatRoomList"
+
         },
         createRoom: function() {
             if("" === this.room_name) {
@@ -57,20 +63,28 @@ export default {
                 return;
             } else {
                 var params = new URLSearchParams();
+                var param = {
+                    roomName: this.room_name,
+                    hostId: 'test',
+                    chatRoomType: 'TEXT',
+                    userList:['test']
+                }
+                
                 params.append("name",this.room_name);
-                axios.post('/chat/room', params)
+                axios.post('/api/chat/room', 
+                    param)
                 .then(
                     response => {
-                        alert(response.data.name+"방 개설에 성공하였습니다.")
+                        alert(response.data.data.roomName+"방 개설에 성공하였습니다.")
                         this.room_name = '';
                         this.findAllRoom();
                     }
                 )
-                // .catch( response => { alert("채팅방 개설에 실패하였습니다."); } );
+                .catch( () => { alert("채팅방 개설에 실패하였습니다."); } );
             }
         },
         enterRoom: function(roomId) {
-            var sender = prompt('대화명을 입력해 주세요.');
+            var sender = 'test';
             if(sender != "") {
                 localStorage.setItem('wschat.sender',sender);
                 localStorage.setItem('wschat.roomId',roomId);

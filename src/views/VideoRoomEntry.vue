@@ -60,18 +60,18 @@
             </label>
           </div>
         </div> -->
-        <button
+        <v-btn
           class="entry-room-box__enter-bnt"
-          @click="this.$router.push('/vedioRoom')"
+          @click="this.$router.push('/videoRoom')"
         >
           입 장 하 기
-        </button>
-        <button
+        </v-btn>
+        <v-btn
           class="entry-room-box__cancel-bnt"
           @click="this.$router.push('/')"
         >
           취 소
-        </button>
+        </v-btn>
       </div>
     </div>
   </div>

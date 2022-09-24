@@ -1,18 +1,32 @@
 <template>
-  <router-view />
+  <v-row>
+    <v-col cols="4">
+      <SideMenu> </SideMenu>
+    </v-col>
+    
+    <v-col cols="8">
+      <v-app>
+        <v-main>
+          <router-view/>
+        </v-main>
+      </v-app>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-export default {}
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+import SideMenu from './components/SideMenu'
+export default {
+  name: 'App',
+  components : {
+    SideMenu
+  },
+  data: () => ({
+    //
+  }),
 }
+</script>
+<style scoped>
+
 </style>
+
