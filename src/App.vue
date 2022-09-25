@@ -1,10 +1,10 @@
 <template>
   <v-row>
-    <v-col cols="4">
+    <v-col cols="2">
       <SideMenu> </SideMenu>
     </v-col>
     
-    <v-col cols="8">
+    <v-col cols="10">
       <v-app>
         <v-main>
           <router-view/>

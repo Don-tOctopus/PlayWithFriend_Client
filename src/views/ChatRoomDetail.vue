@@ -100,7 +100,6 @@ export default {
         connect: function() {
             // pub/sub event
             ws.connect({}, () => { 
-                console.log(this.$data)
                 ws.send("/pub/chat/message", JSON.stringify({chatType:'ENTER', roomIdx:this.$data.roomId, senderId:this.$data.sender, content:'입장했어요!'}),{});
                 ws.subscribe("/sub/chat/room/"+this.$data.roomId, message => {
                     var recv = JSON.parse(message.body);
