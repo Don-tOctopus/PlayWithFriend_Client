@@ -7,7 +7,8 @@
         >   
             <v-card-title>채팅방 리스트</v-card-title> 
             <br/>
-                <v-btn 
+                <v-list color="transparent">
+                <v-list-item
                     class="mb-2" 
                     flat 
                     block 
@@ -15,9 +16,18 @@
                     v-bind:key="item.chatRoomIdx" 
                     @click="enterRoom(item.chatRoomIdx)"
                     color="secondary"
-                >
-                    {{item.roomName}}
-                </v-btn>
+                >   
+                    <v-row>
+                        <v-col cols="6" align="start">
+                            {{item.roomName}}
+                        </v-col>
+                        <v-col  cols="6" align="end">
+                            {{item.ucnt}}
+                        </v-col>
+                    </v-row>
+                    <v-divider></v-divider>
+                </v-list-item>
+            </v-list>
         </v-card>
     </div>
 </template>
@@ -38,7 +48,7 @@ export default {
     methods: {
         findAllRoom: function() {
             axios.get('/api/chat/room/all').then(
-                response => { this.chatrooms = response.data.data; console.log(this.chatrooms)}
+                response => { this.chatrooms = response.data.data;}
             );
         },
         enterRoom: function(roomId) {

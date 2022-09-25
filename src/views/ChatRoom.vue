@@ -49,9 +49,8 @@ export default {
     methods: {
         findAllRoom: function() {
             axios.get('/api/chat/room/all').then(
-                response => { this.chatrooms = response.data.data; console.log(this.chatrooms)}
+                response => { this.chatrooms = response.data.data;}
             );
-            console.log(this.chatrooms)
         },
         goChatRoomList: function(){
             location.href="/chatRoomList"
