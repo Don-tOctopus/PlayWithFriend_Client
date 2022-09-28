@@ -1,8 +1,10 @@
 <template>
     <div>
         <v-card
-            class="px-6 py-8"
+            class="px-6 py-8 mx-auto"
             max-width="800"
+            width="800"
+            height="600"
             variant="outlined"
         >   
             <v-card-title>채팅방 리스트</v-card-title> 

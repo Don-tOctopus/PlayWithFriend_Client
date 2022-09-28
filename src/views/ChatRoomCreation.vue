@@ -5,7 +5,9 @@
             
             <v-card
                 max-width="800"
-                class="mt-5 px-6 py-8"
+                width="800"
+                height="600"
+                class="mt-5 px-6 py-8 mx-auto"
                 variant="outlined"
             >
                 <v-card-title >새로운 채팅방 생성</v-card-title>
