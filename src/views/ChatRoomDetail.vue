@@ -46,7 +46,7 @@
                 <v-btn class="mr-3" variant="outlined" @click="sendMessage">보내기</v-btn>
             </v-col>
         </v-row>
-        <v-row class="mt-4">
+        <v-row class="ml-2 mt-4">
             <v-btn variant="outlined" @click="leaveRoom">나가기</v-btn>
         </v-row>
     </v-sheet>
@@ -81,9 +81,17 @@ export default {
             axios.get('/api/chat/room/'+this.roomId).then(response => { this.room = response.data.data });
         },
         leaveRoom: function(){
-            axios.post('/api/chat/room/leave/'+this.roomId).then( ()  => {
-                location.href="/chatRoomList"
-            })
+            if (confirm("나가기를 하면 채팅방이 채팅목록에서 삭제됩니다.") == true){ 
+                //true는 확인버튼을 눌렀을 때 코드 작성
+                axios.post('/api/chat/room/leave/'+this.roomId).then( ()  => {
+                    //page history를 남기지 않으면서 페이지 이동
+                    location.replace("/chatRoomList")
+                })
+            }else{
+                // false는 취소버튼을 눌렀을 때, 취소됨
+                console.log("취소되었습니다");
+            }
+            
         },
         sendMessage: function() {
             if(this.message != ''){

@@ -6,4 +6,6 @@ const instance = axios.create({
 
 instance.defaults.headers.common['USER-ID'] = 'test'
 
+instance.defaults.headers.common['USER-EMAIL'] = 'test@test.com'
+
 export default instance
