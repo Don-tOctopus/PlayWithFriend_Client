@@ -2,7 +2,7 @@
     <div>
         <v-card
             class="px-6 py-8"
-            max-width="344"
+            max-width="800"
             variant="outlined"
         >   
             <v-card-title>채팅방 리스트</v-card-title> 
@@ -29,6 +29,9 @@
                 </v-list-item>
             </v-list>
         </v-card>
+        <v-row class="ml-1 mt-4">
+            <v-btn variant="outlined" @click="moveCreateChatRoomPage">채팅방 만들기</v-btn>
+        </v-row>
     </div>
 </template>
 <script>
@@ -47,8 +50,8 @@ export default {
     },
     methods: {
         findAllRoom: function() {
-            axios.get('/api/chat/room/all').then(
-                response => { this.chatrooms = response.data.data;}
+            axios.get('/api/chat/room').then(
+                response => { this.chatrooms = response.data.data; console.log(response)}
             );
         },
         enterRoom: function(roomId) {
@@ -62,6 +65,9 @@ export default {
                     }
                 )
             }
+        },
+        moveCreateChatRoomPage(){
+            location.href="/chatRoom_create";
         }
 
     }

@@ -37,7 +37,7 @@ export default {
         location.href="/"
       },
       goChatRoom(){
-        location.href="/chatroom_entry"
+        location.href="/chatroom_create"
       },
       goVideoChatRoom() {
         location.href="/videoRoom_create"

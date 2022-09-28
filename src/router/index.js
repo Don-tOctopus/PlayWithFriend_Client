@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
-import ChatRoom from "../views/ChatRoom.vue";
+import ChatRoom from "../views/ChatRoomCreation.vue";
 import VideoRoomEntry from "../views/VideoRoomEntry.vue";
 import VideoRoomCreation from "../views/VideoRoomCreation.vue";
 import HomePage from "../views/HomePage.vue";
@@ -18,7 +18,7 @@ const router = createRouter({
             component : HomePage
         },
         { 
-            path : "/chatRoom_entry", 
+            path : "/chatRoom_create", 
             name : "chatRoom", 
             component : ChatRoom
         },

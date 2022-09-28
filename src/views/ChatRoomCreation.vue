@@ -4,8 +4,8 @@
         <div class="d-flex flex-column">
             
             <v-card
-                class="mt-15 px-6 py-8"
-                max-width="344"
+                max-width="800"
+                class="mt-5 px-6 py-8"
                 variant="outlined"
             >
                 <v-card-title >새로운 채팅방 생성</v-card-title>
@@ -43,15 +43,9 @@ export default {
         }
     },
     created(){
-        this.findAllRoom()
 
     },
     methods: {
-        findAllRoom: function() {
-            axios.get('/api/chat/room/all').then(
-                response => { this.chatrooms = response.data.data;}
-            );
-        },
         goChatRoomList: function(){
             location.href="/chatRoomList"
 
@@ -64,30 +58,34 @@ export default {
                 var params = new URLSearchParams();
                 var param = {
                     roomName: this.room_name,
-                    hostId: 'test',
+                    hostId: 'test@test.com',
                     chatRoomType: 'TEXT',
-                    userList:['test']
+                    userList:['test@test.com']
                 }
                 
-                params.append("name",this.room_name);
+                params.append("name",this.room_name)
                 axios.post('/api/chat/room', 
                     param)
                 .then(
                     response => {
                         alert(response.data.data.roomName+"방 개설에 성공하였습니다.")
-                        this.room_name = '';
-                        this.findAllRoom();
+                        this.room_name = ''
+                        this.enterRoom(response.data.data.chatRoomIdx)
                     }
                 )
-                .catch( () => { alert("채팅방 개설에 실패하였습니다."); } );
+                .catch( () => { alert("채팅방 개설에 실패하였습니다.") } )
             }
         },
         enterRoom: function(roomId) {
             var sender = 'test';
             if(sender != "") {
-                localStorage.setItem('wschat.sender',sender);
-                localStorage.setItem('wschat.roomId',roomId);
-                location.href="/chat/room/enter/"+roomId;
+                localStorage.setItem('wschat.sender',sender)
+                localStorage.setItem('wschat.roomId',roomId)
+                axios.get('/api/chat/room/enter/'+roomId).then(
+                    () => {
+                        location.href="/chatRoomDetail";
+                    }
+                )
             }
         }
 
