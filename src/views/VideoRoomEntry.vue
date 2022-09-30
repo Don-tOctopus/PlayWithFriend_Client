@@ -62,15 +62,15 @@
               <br>
               <v-btn
                 class="entry-room-box__enter-bnt"
-                @click="this.$router.push('/videoRoom')"
+                @click="enterRoom(videoRoomIdx)"
               >
-                입 장 
+                입 장
               </v-btn>
 
               &nbsp;
               <v-btn
                 class="entry-room-box__cancel-bnt"
-                @click="this.$router.push('/')"
+                @click="back()"
               >
                 취 소
               </v-btn>
@@ -81,7 +81,41 @@
 </template>
 
 <script>
-export default {};
+import axios from '../axios.js'
+
+export default {
+  data() {
+    return {
+      roomId: '',
+      room: {},
+      sender: ''
+    }
+  },
+  created() {
+  },
+  methods: {
+    enterRoom: function(roomId) {
+      var sender = 'aaa'
+
+      if(sender != "") {
+        localStorage.setItem('wschat.sender', sender)
+        localStorage.setItem('wschat.roomId', roomId)
+// 룸 이름으로 날림
+        axios.get('/api/video/room/enter').then(
+          () => {
+            location.href = "/videoRoom"
+            // this.$router.push('/videoRoom')  
+          }
+        )
+              
+      }
+    },
+    back() {
+      this.$router.push('/videoRoom_create')
+    }
+  }
+
+};
 </script>
 
 <style lang="scss" scoped>
