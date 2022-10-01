@@ -100,14 +100,14 @@ export default {
       if(sender != "") {
         localStorage.setItem('wschat.sender', sender)
         localStorage.setItem('wschat.roomId', roomId)
-// 룸 이름으로 날림
-        axios.get('/api/video/room/enter').then(
-          () => {
+        
+        console.log("rromi", roomId)
+        console.log("sender", sender)
+        axios.post('/api/video/room/enter', {sender, roomId}).then(() => {
             location.href = "/videoRoom"
             // this.$router.push('/videoRoom')  
           }
-        )
-              
+        )    
       }
     },
     back() {

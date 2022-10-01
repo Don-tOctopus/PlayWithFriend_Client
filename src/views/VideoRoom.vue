@@ -306,6 +306,7 @@ console.log("data:::::::::", data)
                         })
 
                         // 자신이 접속했다는 socket send (socket join send)
+                        ////////////////////////////////////////// 이미 있던 방이라는 가정을 한다면 roomidx 던져줘야함 create따로 만들어야 함
                         stomp.send(
                             "/pub/video/joined-room-info",
                             JSON.stringify({from: this.myId})
