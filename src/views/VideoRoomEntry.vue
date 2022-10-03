@@ -15,8 +15,6 @@
                   v-model="roomPass"
                   label="입장 비밀 번호를 입력해주세요."
                   v-on:keyup.enter="roomPass"
-                  :rules="passRules"
-                  pattern= passPatern
                   hide-details="auto"
                   maxlength="6"
                 ></v-text-field>
@@ -51,7 +49,7 @@
               <br>
               <v-btn
                 class="entry-room-box__enter-bnt"
-                @click="enterRoom()"
+                @click="joinRoom()"
               >
                 입 장
               </v-btn>
@@ -78,17 +76,13 @@ export default {
       roomId: 0,
       room: {},
       sender: 'aa1',
-      // passPatern = /^$/,
-      passRules: {
-        
-      }
     }
   },
   created() {
     this.roomId = 1
   },
   methods: {
-    enterRoom() {
+    joinRoom() {
       var sender = 'aaa'
 
 ////////////////////////////////////// Test동안만 묶어놓기
@@ -104,12 +98,17 @@ export default {
         console.log("rromi", this.roomId)
         console.log("code", this.roomPass)
         //////////////////////////////////////////// enter+{roomIdx}
-        axios.post('/api/video/room/enter', {userId: sender, roomIdx: this.roomId, roomPassword: this.roomPass}).then(() => {
+        axios.post('/api/video/room/enter', {userId: sender, roomIdx: this.roomId, roomPassword: this.roomPass}).then(response => {
       //////////////////////////////////////////// videoRoom+{roomIdx}
-            this.$router.push('/videoRoom')  
+            this.enterRoom(response.data.data.chatRoomIdx)
           }
         )    
       }
+    },
+    // 파라미터로 roomIdx추가
+    enterRoom() {
+      // videoRoom + {roomIdx}
+      this.$router.push('/videoRoom')
     },
     back() {
       this.$router.push('/videoRoom_create')
