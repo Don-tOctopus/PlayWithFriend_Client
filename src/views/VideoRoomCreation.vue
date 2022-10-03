@@ -53,7 +53,7 @@
             <br>
             <v-btn
               class="creation-room-box__enter-bnt"
-              @click="this.$router.push('/videoRoom')"
+              @click="createRoom()"
             >
               방 생 성
             </v-btn>
@@ -61,7 +61,7 @@
             &nbsp;
             <v-btn
               class="creation-room-box__cancel-bnt"
-              @click="this.$router.push('/')"
+              @click="back()"
             >
               취 소
             </v-btn>
@@ -72,10 +72,72 @@
 </template>
 
 <script>
+import axios from '../axios.js'
+
 export default {
   data() {
     return {
-      items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      items: [2, 3, 4, 5, 6, 7, 8, 9, 10],
+      roomName: '',
+      roomPass: 0,
+      roomMax: 1,
+      friend: []
+    }
+  },
+  created() {        
+    axios.post('/api/video/room/').then(
+          () => {
+            location.href = "/videoRoom"  
+          }
+
+  )},
+  methods: {
+    createRoom() {
+      if (this.roomName == '') {
+        alert("채팅방 이름을 입력해 주세요.")
+        return
+      } if (this.roomPass === 0) {
+        alert("채팅방 비밀번호를 입력해 주세요.")
+        return
+      } if (this.roomMax === 1) {
+        alert("인원 수를 입력해 주세요.")
+        return
+      } if (this.friend === []) {
+        alert("초대 인원을 입력해 주세요.")
+        return
+      }
+      else {
+        // var params = new URLSearchParams()
+
+        var param = {
+            hostId: 'aaa@naver.com',
+            roomName: this.roomName,
+            roomPass: this.roomPass,
+            roomMax: this.roomMax,
+            friends: this.friends,
+            chatRoomType: 'VIDEO',
+            // userList:['aaa@naver.com']
+        }
+        
+        // params.append("name",this.roomName)
+
+          
+        axios.post('/api/video/room', param).then(response => {
+          alert(response.data.data.roomName+"방이 개설되었습니다.")
+
+          this.enterRoom(response.data.data.chatRoomIdx)
+        })
+        .catch( () => { alert("채팅방 개설에 실패하였습니다.")
+        })
+      }
+    },
+    // 파라미터로 roomIdx추가
+    enterRoom() {
+      // videoRoom + {roomIdx}
+      this.$router.push('/videoRoom')
+    },
+    back() {
+      this.$router.push('/')
     }
   }
 };

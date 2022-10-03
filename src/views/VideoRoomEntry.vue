@@ -4,32 +4,21 @@
         <v-card-title class="title">화상채팅 참가</v-card-title>
           <v-card-text class="entry-room-container">
             <div class="entry-room-box">
-              <!-- id -->
-              <div class="form">
-                <p class="formTitle">참여 이름</p>
-                <v-text-field
-                  label="참여 이름를 설정해주세요"
-                  :rules="rules"
-                  hide-details="auto"
-                ></v-text-field>
-              </div>
-
-              <!-- 참여 코드 -->
-              <div class="entry-room-form">
-                <p class="entry-room-form__title">채팅방 코드</p>
-                <v-text-field
-                  label="채팅방 코드를 입력해주세요."
-                  :rules="rules"
-                  hide-details="auto"
-                ></v-text-field>
+              <!-- ////////////////////////////////////////////////////////////방제에 대한 코드 불러온 후 적기 -->
+              <div>
+                참여 방 이름: hiii
               </div>
 
               <div class="entry-room-form">
                 <p class="entry-room-form__title">입장 비밀 번호</p>
                 <v-text-field
+                  v-model="roomPass"
                   label="입장 비밀 번호를 입력해주세요."
-                  :rules="rules"
+                  v-on:keyup.enter="roomPass"
+                  :rules="passRules"
+                  pattern= passPatern
                   hide-details="auto"
+                  maxlength="6"
                 ></v-text-field>
               </div>
               <!-- 
@@ -62,7 +51,7 @@
               <br>
               <v-btn
                 class="entry-room-box__enter-bnt"
-                @click="enterRoom(videoRoomIdx)"
+                @click="enterRoom()"
               >
                 입 장
               </v-btn>
@@ -86,28 +75,40 @@ import axios from '../axios.js'
 export default {
   data() {
     return {
-      roomId: '',
+      roomId: 0,
       room: {},
-      sender: ''
+      sender: 'aa1',
+      // passPatern = /^$/,
+      passRules: {
+        
+      }
     }
   },
   created() {
+    this.roomId = 1
   },
   methods: {
-    enterRoom: function(roomId) {
+    enterRoom() {
       var sender = 'aaa'
 
+////////////////////////////////////// Test동안만 묶어놓기
+      // if(this.roomPass === undefined) {
+      //   alert("방 비밀번호를 입력해주세요.")
+      //   return
+      // } 
       if(sender != "") {
         localStorage.setItem('wschat.sender', sender)
-        localStorage.setItem('wschat.roomId', roomId)
-// 룸 이름으로 날림
-        axios.get('/api/video/room/enter').then(
-          () => {
-            location.href = "/videoRoom"
-            // this.$router.push('/videoRoom')  
+        // localStorage.setItem('wschat.roomId', roomIdx)
+        
+        console.log("sender", sender)
+        console.log("rromi", this.roomId)
+        console.log("code", this.roomPass)
+        //////////////////////////////////////////// enter+{roomIdx}
+        axios.post('/api/video/room/enter', {userId: sender, roomIdx: this.roomId, roomPassword: this.roomPass}).then(() => {
+      //////////////////////////////////////////// videoRoom+{roomIdx}
+            this.$router.push('/videoRoom')  
           }
-        )
-              
+        )    
       }
     },
     back() {
