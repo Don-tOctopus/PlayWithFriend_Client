@@ -33,6 +33,7 @@ const router = createRouter({
             component : VideoRoomEntry
         },
         { 
+            // videoRoom + {roomIdx}
             path : "/videoRoom", 
             name : "videoRoom", 
             component : VideoRoom
