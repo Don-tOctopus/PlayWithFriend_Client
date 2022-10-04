@@ -488,9 +488,9 @@ console.log("data:::::::::", data)
     border-radius: 10px;
 }
 // 비디오 거울 효과
-// video{
-//     transform: rotateY(180deg);
-//     -webkit-transform:rotateY(180deg); /* Safari and Chrome */
-//     -moz-transform:rotateY(180deg); /* Firefox */
-// }
+video{
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
+}
 </style>
