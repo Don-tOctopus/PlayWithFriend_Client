@@ -98,7 +98,7 @@ export default {
         console.log("rromi", this.roomId)
         console.log("code", this.roomPass)
         //////////////////////////////////////////// enter+{roomIdx}
-        axios.post('/api/video/room/enter', {userId: sender, roomIdx: this.roomId, roomPassword: this.roomPass}).then(response => {
+        axios.post('/api/video/room/enter', {userId: 'uzhjd.com', roomIdx: this.roomId, roomPassword: this.roomPass}).then(response => {
       //////////////////////////////////////////// videoRoom+{roomIdx}
             this.enterRoom(response.data.data.chatRoomIdx)
           }

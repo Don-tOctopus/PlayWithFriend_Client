@@ -111,7 +111,8 @@ export default {
               hostId: 'aaa@naver.com',
               roomName: this.roomName,
               roomPass: this.roomPass,
-              friends: this.friends,
+              // id로 넘기기
+              chatRoomRelationList: this.friends,
               chatRoomType: 'VIDEO',
               // userList:['aaa@naver.com']
           }
