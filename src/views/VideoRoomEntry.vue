@@ -119,7 +119,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import "src\assets\scss\2_pages\videoRoom_entry.scss";
 .formTitle {
   font-size: 16px;
 }

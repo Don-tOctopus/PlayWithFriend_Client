@@ -140,7 +140,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import "./../../assets/scss/2_pages/room_creation.scss";
 .videoRoomCard {
   border: #818F59;
 }
