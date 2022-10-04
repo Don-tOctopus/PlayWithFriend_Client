@@ -5,39 +5,42 @@
 
         <v-card-text class="creation-room-container">
           <div class="creation-room-box">
-            <!-- id -->
+            <!-- name ///////////////////////// 패턴 설정-->
             <div class="form">
               <p class="formTitle">방명</p>
               <v-text-field
+                v-model="roomName"
                 label="채팅방 이름를 설정해주세요."
-                :rules="rules"
+                v-on:kdyup.enter="roomName"
+                :rules="nameRule"
+                pattern="namepattern"
+                maxLength="13"
                 hide-details="auto"
               ></v-text-field>
             </div>
-            <!-- pw -->
+            <!-- pw ////////////////////////pattern설정-->
             <div class="form">
-              <p class="formTitle">입장 비밀번호</p>
+              <p class="formTitle">채팅방 비밀번호</p>
               <v-text-field
-                label="입장 비밀 번호를 설정해주세요."
+                v-model="roomPassword"
+                label="채팅방 비밀번호를 설정해주세요."
                 :rules="rules"
+                pattern="PasswordPattern"
+                maxLength="6"
                 hide-details="auto"
               ></v-text-field>
             </div>
-            <!-- 인원 설정 -->
-            <div class="form">
-              <p class="formTitle">인원 설정</p>
-              <v-select
-                :items="items"
-                label="참여 인원 수"
-              ></v-select>  
-            </div>
-            <!-- 친구 초대 -->
+            <!-- 친구 초대 /////////////////////데이터 끌어와서 item에 넣기-->
             <div class="form">
               <p class="formTitle">친구 초대</p>
-              <input
-                  class="creation-room-form__input"
-                  placeholder="친구의 ID를 콤마(,)로 구분해서 입력해주세요(EX. aaa,bbb,ccc)"
-              />  
+              <v-select
+                v-model="friends"
+                :items="friendsList"
+                filled
+                friends
+                label="친구 초대"
+                multiple
+              ></v-select>
             </div>
 
             <br>
@@ -77,11 +80,10 @@ import axios from '../axios.js'
 export default {
   data() {
     return {
-      items: [2, 3, 4, 5, 6, 7, 8, 9, 10],
+      friendsList: ['남유정', '원지윤'],
       roomName: '',
       roomPass: 0,
-      roomMax: 1,
-      friend: []
+      friends: []
     }
   },
   created() {        
@@ -94,41 +96,35 @@ export default {
   methods: {
     createRoom() {
       if (this.roomName == '') {
-        alert("채팅방 이름을 입력해 주세요.")
-        return
+          alert("채팅방 이름을 입력해 주세요.")
+          return
       } if (this.roomPass === 0) {
-        alert("채팅방 비밀번호를 입력해 주세요.")
-        return
-      } if (this.roomMax === 1) {
-        alert("인원 수를 입력해 주세요.")
-        return
-      } if (this.friend === []) {
-        alert("초대 인원을 입력해 주세요.")
-        return
-      }
-      else {
-        // var params = new URLSearchParams()
+          alert("채팅방 비밀번호를 입력해 주세요.")
+          return
+      } if (this.friends === []) {
+          alert("초대 인원을 입력해 주세요.")
+          return
+      } else {
+          // var params = new URLSearchParams()
 
-        var param = {
-            hostId: 'aaa@naver.com',
-            roomName: this.roomName,
-            roomPass: this.roomPass,
-            roomMax: this.roomMax,
-            friends: this.friends,
-            chatRoomType: 'VIDEO',
-            // userList:['aaa@naver.com']
-        }
-        
-        // params.append("name",this.roomName)
-
+          var param = {
+              hostId: 'aaa@naver.com',
+              roomName: this.roomName,
+              roomPass: this.roomPass,
+              // id로 넘기기
+              chatRoomRelationList: this.friends,
+              chatRoomType: 'VIDEO',
+              // userList:['aaa@naver.com']
+          }
           
-        axios.post('/api/video/room', param).then(response => {
-          alert(response.data.data.roomName+"방이 개설되었습니다.")
-
-          this.enterRoom(response.data.data.chatRoomIdx)
-        })
-        .catch( () => { alert("채팅방 개설에 실패하였습니다.")
-        })
+          // params.append("name",this.roomName)
+            
+          axios.post('/api/video/room/create', param).then(response => {
+            alert(response.data.data.roomName+"방이 개설되었습니다.")
+            this.enterRoom(response.data.data.chatRoomIdx)
+          })
+          .catch( () => { alert("채팅방 개설에 실패하였습니다.")
+          })
       }
     },
     // 파라미터로 roomIdx추가
