@@ -106,6 +106,7 @@ export default {
           return
       } else {
           // var params = new URLSearchParams()
+          this.friends.push(hostId)
 
           var param = {
               hostId: 'aaa@naver.com',
@@ -114,7 +115,6 @@ export default {
               // id로 넘기기
               chatRoomRelationList: this.friends,
               chatRoomType: 'VIDEO',
-              // userList:['aaa@naver.com']
           }
           
           // params.append("name",this.roomName)
