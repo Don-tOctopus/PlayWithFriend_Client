@@ -86,35 +86,30 @@ export default {
       friends: []
     }
   },
-  created() {        
-    axios.post('/api/video/room/').then(
-          () => {
-            location.href = "/videoRoom"  
-          }
+  created() {  
 
-  )},
+  },
   methods: {
     createRoom() {
-      if (this.roomName == '') {
-          alert("채팅방 이름을 입력해 주세요.")
-          return
-      } if (this.roomPass === 0) {
-          alert("채팅방 비밀번호를 입력해 주세요.")
-          return
-      } if (this.friends === []) {
-          alert("초대 인원을 입력해 주세요.")
-          return
-      } else {
+      // if (this.roomName == '') {
+      //     alert("채팅방 이름을 입력해 주세요.")
+      //     return
+      // } if (this.roomPass === 0) {
+      //     alert("채팅방 비밀번호를 입력해 주세요.")
+      //     return
+      // } if (this.friends === []) {
+      //     alert("초대 인원을 입력해 주세요.")
+      //     return
+      // } else {
           // var params = new URLSearchParams()
-          this.friends.push(hostId)
-
+              // id로 넘기기
+          this.friends.push('aaa@naver.com')
           var param = {
               hostId: 'aaa@naver.com',
               roomName: this.roomName,
               roomPass: this.roomPass,
               // id로 넘기기
-              chatRoomRelationList: this.friends,
-              chatRoomType: 'VIDEO',
+              chatRoomRelationList: this.friends
           }
           
           // params.append("name",this.roomName)
@@ -125,7 +120,7 @@ export default {
           })
           .catch( () => { alert("채팅방 개설에 실패하였습니다.")
           })
-      }
+      // }
     },
     // 파라미터로 roomIdx추가
     enterRoom() {
