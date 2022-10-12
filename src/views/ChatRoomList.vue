@@ -52,16 +52,25 @@ export default {
     },
     methods: {
         findAllRoom: function() {
-            axios.get('/api/chat/room').then(
-                response => { this.chatrooms = response.data.data; console.log(response)}
+            axios.get('/api/chat/room',
+            {
+                headers: {
+                    'USER-EMAIL':this.$store.state.userEmail
+                }
+            }).then(
+                response => { this.chatrooms = response.data.data;}
             );
         },
         enterRoom: function(roomId) {
-            var sender = 'test';
+            var sender = this.$store.state.username; //나중에 로그인한 유저의 이름을 여기 받을 수 있도록 변경
             if(sender != "") {
                 localStorage.setItem('wschat.sender',sender);
                 localStorage.setItem('wschat.roomId',roomId);
-                axios.get('/api/chat/room/enter/'+roomId).then(
+                axios.get('/api/chat/room/enter/'+roomId,{
+                    headers: {
+                        'USER-EMAIL':this.$store.state.userEmail
+                    }
+                }).then(
                     () => {
                         location.href="/chatRoomDetail";
                     }

@@ -7,9 +7,8 @@
               <div class="entry-room-form">
                 <p class="entry-room-form__title">Id</p>
                 <v-text-field
-                  v-model="userId"
+                  v-model="userEmail"
                   label="아이디를 입력해주세요."
-                  v-on:keyup.enter="roomPass"
                   hide-details="auto"
                   maxlength="30"
                 ></v-text-field>
@@ -19,7 +18,6 @@
                 <v-text-field
                   v-model="password"
                   label="비밀 번호를 입력해주세요."
-                  v-on:keyup.enter="password"
                   hide-details="auto"
                   maxlength="24"
                 ></v-text-field>
@@ -35,9 +33,9 @@
               <br>
               <v-btn
                 class="entry-room-box__enter-bnt"
-                @click="joinRoom()"
+                @click="onLogin()"
               >
-                입 장
+                로그인
               </v-btn>
 
               &nbsp;
@@ -54,10 +52,13 @@
 </template>
 
 <script>
+import axios from '../axios.js'
 
 export default {
   data() {
     return {
+      userEmail:'',
+      password:'',
       googleSignInParams: {
         client_id: 'YOUR_APP_CLIENT_ID.apps.googleusercontent.com'
       }
@@ -66,6 +67,22 @@ export default {
   created() {
   },
   methods: {
+    onLogin(){
+      var param = {
+        "email":this.userEmail,
+        "password":this.password
+      }
+        console.log(this.$store)
+      axios.post("/user/login",param)
+      .then(response => {
+        if(response.data.code == 200){
+            this.$store.commit('setUserInfo', response.data.data);
+            this.$store.commit('setToken', response.data.data.tokenInfo.accessToken); // 토큰 셋팅
+            this.$router.push("/");
+
+        }
+      })
+    },
     onSignInSuccess (googleUser) {
       // `googleUser` is the GoogleUser object that represents the just-signed-in user.
       // See https://developers.google.com/identity/sign-in/web/reference#users
