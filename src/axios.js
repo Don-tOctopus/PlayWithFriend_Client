@@ -5,7 +5,6 @@ const instance = axios.create({
 })
 
 instance.defaults.headers.common['USER-ID'] = 'test'
-
-instance.defaults.headers.common['USER-EMAIL'] = 'test@test.com'
+// instance.defaults.headers.common['USER-EMAIL'] = localStorage.getItem('vuex')
 
 export default instance

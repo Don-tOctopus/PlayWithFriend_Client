@@ -60,14 +60,17 @@ export default {
                 var params = new URLSearchParams();
                 var param = {
                     roomName: this.room_name,
-                    hostId: 'test@test.com',
-                    chatRoomType: 'TEXT',
-                    userList:['test@test.com']
+                    hostId: this.$store.state.userEmail,
+                    userList:[this.$store.state.userEmail]
                 }
                 
                 params.append("name",this.room_name)
                 axios.post('/api/chat/room', 
-                    param)
+                    param,{
+                        headers:{
+                            'USER-EMAIL':this.$store.state.userEmail
+                        }
+                    })
                 .then(
                     response => {
                         alert(response.data.data.roomName+"방 개설에 성공하였습니다.")

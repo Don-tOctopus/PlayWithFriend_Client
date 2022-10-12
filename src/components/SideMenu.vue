@@ -15,8 +15,11 @@
 
         <template v-slot:append>
           <div class="pa-2">
-            <v-btn block>
+            <v-btn v-if="this.$store.getters.isLogin" block>
               Logout
+            </v-btn>
+            <v-btn v-else block @click="goLogin">
+              Login
             </v-btn>
           </div>
         </template>
@@ -32,7 +35,13 @@ export default {
 
         }
     },
+    created(){
+      console.log(this.$store.getters.isLogin)
+    },
     methods:{
+      goLogin(){
+        location.href="/login"
+      },
       goHomeView(){
         location.href="/"
       },
