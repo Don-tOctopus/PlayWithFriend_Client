@@ -5,10 +5,10 @@
           <v-card-text class="entry-room-container">
             <div class="entry-room-box">
               <div class="entry-room-form">
-                <p class="entry-room-form__title">Id</p>
+                <p class="entry-room-form__title">Email</p>
                 <v-text-field
                   v-model="userEmail"
-                  label="아이디를 입력해주세요."
+                  label="이메일을 입력해주세요."
                   hide-details="auto"
                   maxlength="30"
                 ></v-text-field>
@@ -16,10 +16,13 @@
               <div class="entry-room-form">
                 <p class="entry-room-form__title">Password</p>
                 <v-text-field
+                  :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                   v-model="password"
+                  :type="show ? 'text' : 'password'"
                   label="비밀 번호를 입력해주세요."
                   hide-details="auto"
-                  maxlength="24"
+                  maxlength="20"
+                  @click:append-inner="show = !show"
                 ></v-text-field>
               </div>
 
@@ -52,11 +55,12 @@
 </template>
 
 <script>
-import axios from '../axios.js'
+// import axios from '../axios.js'
 
 export default {
   data() {
     return {
+      show: false,
       userEmail:'',
       password:'',
       googleSignInParams: {
@@ -68,20 +72,16 @@ export default {
   },
   methods: {
     onLogin(){
-      var param = {
-        "email":this.userEmail,
-        "password":this.password
-      }
-        console.log(this.$store)
-      axios.post("/user/login",param)
-      .then(response => {
-        if(response.data.code == 200){
-            this.$store.commit('setUserInfo', response.data.data);
-            this.$store.commit('setToken', response.data.data.tokenInfo.accessToken); // 토큰 셋팅
-            this.$router.push("/");
-
-        }
-      })
+  
+      this.$store
+        .dispatch("login", {
+          "email" : this.userEmail,
+          "password" : this.password
+        })
+        .then(() => {
+          location.href="/"
+        })
+        .catch(err => (this.error = err.response.data.error));
     },
     onSignInSuccess (googleUser) {
       // `googleUser` is the GoogleUser object that represents the just-signed-in user.
