@@ -78,22 +78,13 @@ export default {
     },
     methods: {
         findRoom: function() {
-            axios.get('/api/chat/room/'+this.roomId,{
-                headers: {
-                    'USER-EMAIL':this.$store.state.userEmail
-                }
-            }
+            axios.get('/api/chat/room/'+this.roomId
             ).then(response => { this.room = response.data.data });
         },
         leaveRoom: function(){
             if (confirm("나가기를 하면 채팅방이 채팅목록에서 삭제됩니다.") == true){ 
                 //true는 확인버튼을 눌렀을 때 코드 작성
-                axios.post('/api/chat/room/leave/'+this.roomId,
-                null,{
-                    headers: {
-                        'USER-EMAIL':this.$store.state.userEmail
-                    }
-                }
+                axios.post('/api/chat/room/leave/'+this.roomId
                 ).then( ()  => {
                     //page history를 남기지 않으면서 페이지 이동
                     location.replace("/chatRoomList")
@@ -140,9 +131,7 @@ export default {
 <style scoped>
 div .sender {
     font-size:15px;
-    width : 50px;
-    height: 30px;
-    background-color: lightblue;
+    
 }
 div .message {
     font-size: 20px;

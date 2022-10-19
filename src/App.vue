@@ -1,17 +1,19 @@
 <template>
-  <v-row>
-    <v-col cols="2">
-      <SideMenu> </SideMenu>
-    </v-col>
-    
-    <v-col cols="10">
-      <v-app>
-        <v-main>
-          <router-view/>
-        </v-main>
-      </v-app>
-    </v-col>
-  </v-row>
+   <v-layout>
+      <v-row>
+        <v-col cols="2">
+          <SideMenu> </SideMenu>
+        </v-col>
+     
+        <v-col cols="10">
+          <v-app>
+            <v-main>
+              <router-view/>
+            </v-main>
+          </v-app>
+        </v-col>
+       </v-row>
+   </v-layout>
 </template>
 
 <script>

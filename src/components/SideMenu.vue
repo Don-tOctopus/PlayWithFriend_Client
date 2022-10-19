@@ -1,7 +1,8 @@
 <template>
     <v-card width="300px">
-    <v-layout>
       <v-navigation-drawer
+        expand-on-hover
+        rail
         color="#FFEB99"
         theme="light"
         permanent
@@ -15,7 +16,7 @@
 
         <template v-slot:append>
           <div class="pa-2">
-            <v-btn v-if="this.$store.getters.isLogin" block>
+            <v-btn v-if="this.$store.getters.isLogin" block @click="goLogout">
               Logout
             </v-btn>
             <v-btn v-else block @click="goLogin">
@@ -25,7 +26,6 @@
         </template>
       </v-navigation-drawer>
       <!-- <v-main style="height: 400px"></v-main> -->
-    </v-layout>
   </v-card>
 </template>
 <script>
@@ -41,6 +41,11 @@ export default {
     methods:{
       goLogin(){
         location.href="/login"
+      },
+      goLogout(){
+        this.$store.dispatch("logout")
+        location.href="/login"
+        console.log("logout!")
       },
       goHomeView(){
         location.href="/"

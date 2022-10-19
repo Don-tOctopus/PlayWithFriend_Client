@@ -60,17 +60,13 @@ export default {
                 var params = new URLSearchParams();
                 var param = {
                     roomName: this.room_name,
-                    hostId: this.$store.state.userEmail,
-                    userList:[this.$store.state.userEmail]
+                    hostId: this.$store.state.user.email,
+                    userList:[this.$store.state.user.email]
                 }
                 
                 params.append("name",this.room_name)
                 axios.post('/api/chat/room', 
-                    param,{
-                        headers:{
-                            'USER-EMAIL':this.$store.state.userEmail
-                        }
-                    })
+                    param)
                 .then(
                     response => {
                         alert(response.data.data.roomName+"방 개설에 성공하였습니다.")
@@ -82,7 +78,7 @@ export default {
             }
         },
         enterRoom: function(roomId) {
-            var sender = 'test';
+            var sender = this.$store.state.user.userName;
             if(sender != "") {
                 localStorage.setItem('wschat.sender',sender)
                 localStorage.setItem('wschat.roomId',roomId)
